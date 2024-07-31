@@ -64,10 +64,9 @@ class CpPhySerial(CpPhy):
 					raise PhyError("Module serial.rs485 "
 						"is not available. "
 						"Please use useRS485Class=False.")
-				self.__serial = serial.rs485.RS485()
+				self.__serial = serial.rs485.RS485(port)
 			else:
-				self.__serial = serial.Serial()
-			self.__serial.port = port
+				self.__serial = serial.serial_for_url(port, do_not_open = True)
 			self.__serial.baudrate = CpPhy.BAUD_9600
 			self.__serial.bytesize = 8
 			self.__serial.parity = serial.PARITY_EVEN
